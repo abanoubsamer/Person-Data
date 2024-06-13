@@ -42,8 +42,9 @@
             this.butShowAll = new System.Windows.Forms.Button();
             this.butExit = new System.Windows.Forms.Button();
             this.info = new System.Windows.Forms.ToolTip(this.components);
-            this.picture = new System.Windows.Forms.PictureBox();
             this.butSelectPhoto = new System.Windows.Forms.Button();
+            this.picture = new System.Windows.Forms.PictureBox();
+            this.ShowAllWithPhoto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,17 +179,6 @@
             this.info.IsBalloon = true;
             this.info.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // picture
-            // 
-            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picture.Location = new System.Drawing.Point(848, 83);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(174, 190);
-            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture.TabIndex = 11;
-            this.picture.TabStop = false;
-            this.picture.Click += new System.EventHandler(this.picture_Click);
-            // 
             // butSelectPhoto
             // 
             this.butSelectPhoto.BackColor = System.Drawing.Color.CadetBlue;
@@ -202,11 +192,36 @@
             this.butSelectPhoto.UseVisualStyleBackColor = false;
             this.butSelectPhoto.Click += new System.EventHandler(this.butSelectPhoto_Click);
             // 
+            // picture
+            // 
+            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picture.Location = new System.Drawing.Point(848, 83);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(174, 190);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 11;
+            this.picture.TabStop = false;
+            this.picture.Click += new System.EventHandler(this.picture_Click);
+            // 
+            // ShowAllWithPhoto
+            // 
+            this.ShowAllWithPhoto.BackColor = System.Drawing.Color.CadetBlue;
+            this.ShowAllWithPhoto.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ShowAllWithPhoto.Location = new System.Drawing.Point(273, 388);
+            this.ShowAllWithPhoto.Name = "ShowAllWithPhoto";
+            this.ShowAllWithPhoto.Size = new System.Drawing.Size(499, 50);
+            this.ShowAllWithPhoto.TabIndex = 13;
+            this.ShowAllWithPhoto.Text = "Show All With Photo";
+            this.info.SetToolTip(this.ShowAllWithPhoto, "Add a New Person");
+            this.ShowAllWithPhoto.UseVisualStyleBackColor = false;
+            this.ShowAllWithPhoto.Click += new System.EventHandler(this.ShowAllWithPhoto_Click);
+            // 
             // PersonData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 388);
+            this.ClientSize = new System.Drawing.Size(1067, 450);
+            this.Controls.Add(this.ShowAllWithPhoto);
             this.Controls.Add(this.butSelectPhoto);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.butExit);
@@ -249,6 +264,7 @@
         private System.Windows.Forms.ToolTip info;
         private System.Windows.Forms.PictureBox picture;
         private System.Windows.Forms.Button butSelectPhoto;
+        private System.Windows.Forms.Button ShowAllWithPhoto;
     }
 }
 

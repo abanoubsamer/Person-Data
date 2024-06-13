@@ -214,7 +214,6 @@ namespace Person_Data
             OpenFileDialog of = new OpenFileDialog();
             of.InitialDirectory=Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             of.Filter = "PNG File|*.jpg;*.png;*.gif;*.bmp";
-            string photo;
             if (of.ShowDialog() == DialogResult.OK)
             {
                 picture.Image=Image.FromFile(of.FileName);
@@ -224,6 +223,82 @@ namespace Person_Data
 
         private void picture_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void ShowAllWithPhoto_Click(object sender, EventArgs e)
+        {
+
+
+
+            try
+            {
+                // Create a new Form
+                Form showall = new Form();
+                showall.Text = "Show All Data";
+                showall.StartPosition = FormStartPosition.CenterScreen;
+                showall.Size = new Size(600, 400); // Example size, adjust as needed
+                showall.Icon = this.Icon;
+
+                // Create a Panel to host TextBoxes and PictureBoxes with auto-scroll
+                Panel panel = new Panel();
+                panel.Dock = DockStyle.Fill;
+                panel.AutoScroll = true;
+                showall.Controls.Add(panel);
+
+                // Create a StreamReader to read from the file
+                using (StreamReader str = new StreamReader("personData.txt"))
+                {
+                    string line;
+                    int y = 20; // Starting Y position for TextBoxes and PictureBoxes
+
+                    // Read each line from the file
+                    while ((line = str.ReadLine()) != null)
+                    {
+                        string[] data = line.Split(';');
+                        if (data.Length >= 3)
+                        {
+                            // Create and configure the PictureBox
+                            PictureBox pb = new PictureBox();
+                            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                            pb.Size = new Size(50, 50); // Adjust size as needed
+                            pb.Location = new Point(20, y);
+
+                            try
+                            {
+                                pb.Image = Image.FromFile(@"img/" + data[0] + ".jpg");
+                            }
+                            catch (FileNotFoundException)
+                            {
+                                pb.Image = null; // Or set a default image
+                            }
+
+                            // Create and configure the TextBox
+                            TextBox tx = new TextBox();
+                            tx.Font = this.Font;
+                            tx.Multiline = true;
+                            tx.ReadOnly = true;
+                            tx.Text = "ID: " + data[0] + "\r\nName: " + data[1] + "\r\nAddress: " + data[2];
+                            tx.Size = new Size(panel.ClientSize.Width - 100, 50); // Adjust size as per the panel
+                            tx.Location = new Point(80, y);
+
+                            // Add PictureBox and TextBox to the Panel
+                            panel.Controls.Add(pb);
+                            panel.Controls.Add(tx);
+
+                            // Increase Y position for the next set of controls
+                            y += 60; // Adjust spacing as needed
+                        }
+                    }
+                }
+
+                // Show the form as a dialog
+                showall.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
         }
     }
