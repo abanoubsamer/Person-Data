@@ -42,6 +42,9 @@
             this.butShowAll = new System.Windows.Forms.Button();
             this.butExit = new System.Windows.Forms.Button();
             this.info = new System.Windows.Forms.ToolTip(this.components);
+            this.picture = new System.Windows.Forms.PictureBox();
+            this.butSelectPhoto = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
             // labal_titla
@@ -175,11 +178,37 @@
             this.info.IsBalloon = true;
             this.info.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
+            // picture
+            // 
+            this.picture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picture.Location = new System.Drawing.Point(848, 83);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(174, 190);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture.TabIndex = 11;
+            this.picture.TabStop = false;
+            this.picture.Click += new System.EventHandler(this.picture_Click);
+            // 
+            // butSelectPhoto
+            // 
+            this.butSelectPhoto.BackColor = System.Drawing.Color.CadetBlue;
+            this.butSelectPhoto.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.butSelectPhoto.Location = new System.Drawing.Point(848, 309);
+            this.butSelectPhoto.Name = "butSelectPhoto";
+            this.butSelectPhoto.Size = new System.Drawing.Size(174, 54);
+            this.butSelectPhoto.TabIndex = 12;
+            this.butSelectPhoto.Text = "Select Photo";
+            this.info.SetToolTip(this.butSelectPhoto, "Exit From Program");
+            this.butSelectPhoto.UseVisualStyleBackColor = false;
+            this.butSelectPhoto.Click += new System.EventHandler(this.butSelectPhoto_Click);
+            // 
             // PersonData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 388);
+            this.ClientSize = new System.Drawing.Size(1067, 388);
+            this.Controls.Add(this.butSelectPhoto);
+            this.Controls.Add(this.picture);
             this.Controls.Add(this.butExit);
             this.Controls.Add(this.butShowAll);
             this.Controls.Add(this.btnfFind);
@@ -193,11 +222,12 @@
             this.Controls.Add(this.labal_titla);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PersonData";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Person Data";
             this.Load += new System.EventHandler(this.PersonData_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,6 +247,8 @@
         private System.Windows.Forms.Button butShowAll;
         private System.Windows.Forms.Button butExit;
         private System.Windows.Forms.ToolTip info;
+        private System.Windows.Forms.PictureBox picture;
+        private System.Windows.Forms.Button butSelectPhoto;
     }
 }
 

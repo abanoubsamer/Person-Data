@@ -53,7 +53,7 @@ namespace Person_Data
         {
             try
             {
-                if(IDtext.Text.Trim()==""|| Nametext.Text.Trim()==""|| Addresstext.Text.Trim()=="")
+                if(IDtext.Text.Trim()==""|| Nametext.Text.Trim()==""|| Addresstext.Text.Trim()==""||picture.Image==null)
                 {
                     MessageBox.Show("Pleas Enter All Data.");
                     return;
@@ -65,6 +65,10 @@ namespace Person_Data
                     StreamWriter strWriter = new StreamWriter("personData.txt", true);
                         strWriter.WriteLine($"{IDtext.Text};{Nametext.Text};{Addresstext.Text}");
                         strWriter.Close();
+                    if (!Directory.Exists("img"))
+                        Directory.CreateDirectory("img");
+                  
+                    picture.Image.Save("img/" + IDtext.Text +".jpg");
 
                     foreach (Control c in this.Controls)
                     {
@@ -73,6 +77,7 @@ namespace Person_Data
                             c.Text = string.Empty;
                         }
                     }
+                    picture.Image = null;
                     MessageBox.Show("Add The New Person.");
                     IDtext.Focus();
                 }
@@ -111,31 +116,52 @@ namespace Person_Data
 
             try
             {
+                // Check if the ID text box is empty
                 if (IDtext.Text.Trim() == "")
                 {
-                    MessageBox.Show("Pleas Enter The Id.");
+                    MessageBox.Show("Please Enter The Id.");
                     IDtext.Focus();
                     return;
                 }
-                string[] data = find(IDtext.Text.ToString());
+
+                // Find the data for the given ID
+                string[] data = find(IDtext.Text.Trim());
+
                 if (data != null)
                 {
+                    // Construct the image file path
+                    string imgPath = Path.Combine("img", IDtext.Text +".jpg");
+                
+                    // Check if the image file exists before loading it
+                    if (File.Exists(imgPath))
+                    {
+                        picture.Image = Image.FromFile(imgPath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Image file not found.");
+                        picture.Image = null;
+                    }
+
+                    // Populate text fields with found data
                     Nametext.Text = data[1];
                     Addresstext.Text = data[2];
                 }
                 else
                 {
+                    // Notify the user that the person was not found
                     MessageBox.Show("Not Found This Person.");
                     IDtext.Focus();
                     IDtext.SelectAll();
                     Nametext.Text = string.Empty;
                     Addresstext.Text = string.Empty;
-
+                    picture.Image = null; // Clear the picture box
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                // Show the error message
+                MessageBox.Show($"An error occurred: {ex.Message}");
             }
 
         }
@@ -181,6 +207,24 @@ namespace Person_Data
         private void butExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void butSelectPhoto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of = new OpenFileDialog();
+            of.InitialDirectory=Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            of.Filter = "PNG File|*.jpg;*.png;*.gif;*.bmp";
+            string photo;
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                picture.Image=Image.FromFile(of.FileName);
+                picture.ImageLocation = of.FileName;
+            }
+        }
+
+        private void picture_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
